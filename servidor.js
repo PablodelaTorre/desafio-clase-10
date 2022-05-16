@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const multer = require('multer')
-const routesDesafio = require("./routes/routes.js")
+const routesProductos = require("./routes/routes-productos.js")
 
 app.use(multer({
     dest:__dirname+"/public/files",
@@ -9,8 +9,28 @@ app.use(multer({
 }).single("photo"))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(express.static(__dirname+"/public"))
-app.use('/api/productos', routesDesafio)
+// app.use(express.static(__dirname+"/public"))
+//app.use('/api/productos', routesDesafio)
+app.use('/productos', routesProductos)
+app.set('views','./views')
+app.set('view engine','ejs')
+
+app.get('/',(req,res) => {
+    res.render('index', {
+        title:"Agregue un producto"
+    })
+})
+app.post('/productos',(req,res) => {
+    res.render('index', {
+        title:"Producto Agregado con éxito"
+    })
+})
+app.get('/productos',(req,res) => {
+    res.render('./partials/productos.ejs', {
+        title:"Agregue un producto"
+    })
+})
+
 
 const PORT = 8080
 const server = app.listen(PORT, () => {

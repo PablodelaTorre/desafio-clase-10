@@ -49,9 +49,17 @@ class Container {
 
 const containerProductos = new Container()
 
-router.get('/', (req,res) => {
+// router.get('/', (req,res) => {
+//     products = containerProductos.devolverP()
+//     res.json({products})
+// })
+
+router.get('/',(req,res) => {
     products = containerProductos.devolverP()
-    res.json({products})
+    res.render('./partials/productos.ejs', {
+        title:"Agregue un producto",
+        products
+    })
 })
 
 router.get('/:id',(req,res) => {
@@ -80,6 +88,5 @@ router.delete('/:id', (req,res) => {
     containerProductos.deleteP(id)
     res.json({mensaje:"producto eliminado con éxito"})
 })
-
 
 module.exports = router 
