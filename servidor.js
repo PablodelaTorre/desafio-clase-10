@@ -9,8 +9,7 @@ app.use(multer({
 }).single("photo"))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-// app.use(express.static(__dirname+"/public"))
-//app.use('/api/productos', routesDesafio)
+app.use(express.static(__dirname+"/public"))
 app.use('/productos', routesProductos)
 app.set('views','./views')
 app.set('view engine','ejs')
@@ -20,17 +19,6 @@ app.get('/',(req,res) => {
         title:"Agregue un producto"
     })
 })
-app.post('/productos',(req,res) => {
-    res.render('index', {
-        title:"Producto Agregado con éxito"
-    })
-})
-app.get('/productos',(req,res) => {
-    res.render('./partials/productos.ejs', {
-        title:"Agregue un producto"
-    })
-})
-
 
 const PORT = 8080
 const server = app.listen(PORT, () => {
